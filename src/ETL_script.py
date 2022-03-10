@@ -1,13 +1,19 @@
+import pprint
+
 import requests
 
 
-def request_to_api(lat, lon):
+def request_to_api():
     """
-    request to api openweathermap
-    :param lat: city's geographic coordinate latitude
-    :param lon: city's geographic coordinate longitude
-    :return:
+    request to api https://randomuser.me/
+    return: dict users
     """
-    url = f'https://api.openweathermap.org/' \
-          f'data/2.5/onecall?lat={lat}&lon={lon}&appid={TOKEN}&units=metric'
+    url = f'https://randomuser.me/api/?results=100&gender=male'
     return requests.get(url).json()
+
+
+data = request_to_api()
+
+print((data["results"][1]['name']))
+pprint.pprint(data)
+
