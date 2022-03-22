@@ -73,3 +73,4 @@ def added_info(data):
     cursor.executemany(query, (data,))
     db.commit()
     return print(f'added info users')
+
