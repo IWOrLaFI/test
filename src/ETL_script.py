@@ -1,5 +1,3 @@
-from sql_func import added_info
-
 import requests
 
 
@@ -98,16 +96,16 @@ def func():
             value['registered']['age'],
             value['registered']['date']
         )
-        us = [u.cell, u.dob_age, u.dob_date, u.email, u.gender, u.id_name, u.id_value,
-              u.location_city, u.location_coordinates_latitude, u.location_coordinates_longitude,
-              u.location_country, u.location_postcode, u.location_state, u.location_street_name,
-              u.location_street_number,
-              u.location_timezone_description, u.location_timezone_offset,
-              u.login_md5, u.login_password, u.login_salt, u.login_sha1, u.login_sha256, u.login_username,
-              u.login_uuid, u.name_first, u.name_last, u.name_title, u.nat, u.phone,
-              u.picture_large, u.picture_medium, u.picture_thumbnail,
-              u.registered_age, u.registered_date]
-        added_info(us)
+        user = [u.cell, u.dob_age, u.dob_date, u.email, u.gender, u.id_name, u.id_value,
+                u.location_city, u.location_coordinates_latitude, u.location_coordinates_longitude,
+                u.location_country, u.location_postcode, u.location_state, u.location_street_name,
+                u.location_street_number,
+                u.location_timezone_description, u.location_timezone_offset,
+                u.login_md5, u.login_password, u.login_salt, u.login_sha1, u.login_sha256, u.login_username,
+                u.login_uuid, u.name_first, u.name_last, u.name_title, u.nat, u.phone,
+                u.picture_large, u.picture_medium, u.picture_thumbnail,
+                u.registered_age, u.registered_date]
+        return user
 
 
 func()
