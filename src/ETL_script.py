@@ -11,7 +11,7 @@ def request_to_api():
     return requests.get(url).json()
 
 
-users_json = request_to_api()
+# users_json = request_to_api()
 
 
 class User:
@@ -59,8 +59,13 @@ class User:
         self.registered_date = registered_date
 
 
-def separation_users(d):
-    for i, value in enumerate(d):
+def separation_users(data):
+    """
+    The function separates information by one user to pass it to the database
+    :param data:dict(json)
+    :return:
+    """
+    for i, value in enumerate(data):
         u = User(
             value['cell'],
             value['dob']['age'],
@@ -107,13 +112,13 @@ def separation_users(d):
                 u.picture_large, u.picture_medium, u.picture_thumbnail,
                 u.registered_age, u.registered_date]
         added_info(user)
-    return print(f'added info {i+1} users')
+    return print(f"added users' info")
 
 
 def start():
     delete_table()
     create_table_sql('db/users.db')
-    separation_users(users_json['results'])
+    separation_users(request_to_api()['results'])
 
 
 start()
