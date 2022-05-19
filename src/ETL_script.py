@@ -1,4 +1,5 @@
 import requests
+from sql_func import added_info, create_table_sql, delete_table
 
 
 def request_to_api():
@@ -10,7 +11,7 @@ def request_to_api():
     return requests.get(url).json()
 
 
-data = request_to_api()
+users_json = request_to_api()
 
 
 class User:
@@ -58,8 +59,8 @@ class User:
         self.registered_date = registered_date
 
 
-def func():
-    for i, value in enumerate(data['results']):
+def separation_users(d):
+    for i, value in enumerate(d):
         u = User(
             value['cell'],
             value['dob']['age'],
@@ -95,7 +96,7 @@ def func():
             value['picture']['thumbnail'],
             value['registered']['age'],
             value['registered']['date']
-        )
+            )
         user = [u.cell, u.dob_age, u.dob_date, u.email, u.gender, u.id_name, u.id_value,
                 u.location_city, u.location_coordinates_latitude, u.location_coordinates_longitude,
                 u.location_country, u.location_postcode, u.location_state, u.location_street_name,
@@ -105,8 +106,14 @@ def func():
                 u.login_uuid, u.name_first, u.name_last, u.name_title, u.nat, u.phone,
                 u.picture_large, u.picture_medium, u.picture_thumbnail,
                 u.registered_age, u.registered_date]
-        return user
+        added_info(user)
+    return print(f'added info {i+1} users')
 
 
-func()
-# print(type(user_1), user_1)
+def start():
+    delete_table()
+    create_table_sql('db/users.db')
+    separation_users(users_json['results'])
+
+
+start()

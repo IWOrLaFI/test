@@ -72,5 +72,18 @@ def added_info(data):
                                             ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ); """
     cursor.executemany(query, (data,))
     db.commit()
+    return
+
+
+def find_info(data):
+    """
+    Added info to table.
+    """
+    with sqlite3.connect('db/users.db') as db:
+        cursor = db.cursor()
+    query = f"""INSERT INTO users VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ,
+                                            ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ); """
+    cursor.executemany(query, (data,))
+    db.commit()
     return print(f'added info users')
 
