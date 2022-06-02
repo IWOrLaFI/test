@@ -82,7 +82,17 @@ def list_db(file_db_name='db/users.db'):
     cursor.execute(query)
     db.commit()
     data_list = (cursor.execute(query)).fetchall()
-    for i, v in enumerate(data_list):
-        print(i+1, v)
-    return print(f"users' info printed")
+    # for i, v in enumerate(data_list):
+    #     print(i+1, v)
+    return data_list
+
+
+def find_param(param, param_name, file_db_name='db/users.db' ):
+    with sqlite3.connect(file_db_name) as db:
+        cursor = db.cursor()
+    query = f""" SELECT * FROM users; """
+    cursor.execute(query)
+    db.commit()
+    data_list = (cursor.execute(query)).fetchall()
+    return data_list
 
