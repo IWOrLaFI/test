@@ -75,15 +75,14 @@ def added_info(data):
     return
 
 
-def find_info(data):
-    """
-    Added info to table.
-    """
-    with sqlite3.connect('db/users.db') as db:
+def list_db(file_db_name='db/users.db'):
+    with sqlite3.connect(file_db_name) as db:
         cursor = db.cursor()
-    query = f"""INSERT INTO users VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ,
-                                            ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ); """
-    cursor.executemany(query, (data,))
+    query = f""" SELECT * FROM users; """
+    cursor.execute(query)
     db.commit()
-    return print(f'added info users')
+    data_list = (cursor.execute(query)).fetchall()
+    for i, v in enumerate(data_list):
+        print(i+1, v)
+    return print(f"users' info printed")
 
