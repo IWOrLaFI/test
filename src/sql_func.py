@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from pprint import pprint
 
 
 def delete_table(file_db_name='db/users.db'):
@@ -96,6 +97,16 @@ def get_one_specified_entity(param='nat', param_data='AU', file_db_name='db/user
     """
     function search database objects
     :param param: search object
+        cell, dob_age, dob_date, email, gender, id_name, id_value, location_city,
+        location_coordinates_latitude, location_coordinates_longitude,
+        location_country, location_postcode, location_state,
+        location_street_name, location_street_number,
+        location_timezone_description, location_timezone_offset,
+        login_md5, login_password, login_salt, login_sha1,
+        login_sha256, login_username, login_uuid,
+        name_first, name_last, name_title, nat,
+        phone,  picture_large, picture_medium, picture_thumbnail,
+        registered_age, registered_date.
     :param param_data: name object
     :param file_db_name:
     :return:
@@ -123,3 +134,71 @@ def delete_one_specified_entity(param='nat', param_data='DE', file_db_name='db/u
     cursor.execute(query)
     db.commit()
     return print(f'{param} = {param_data} delete')
+
+
+def print_to_json(data):
+    json_list = {"results": []}
+    for i, v in enumerate(data):
+        user_json = {
+            "gender": v[4],
+            "name": {
+                "title": v[26],
+                "first": v[24],
+                "last": v[25]
+                },
+            "location": {
+                "street": {
+                    "number": v[14],
+                    "name": v[13]
+                    },
+                "city": v[7],
+                "state": v[12],
+                "country": v[10],
+                "postcode": v[11],
+                "coordinates": {
+                    "latitude": v[8],
+                    "longitude": v[9]
+                    },
+                "timezone": {
+                    "offset": v[16],
+                    "description": v[15]
+                    }
+                },
+            "email": v[3],
+            "login": {
+                "uuid": v[23],
+                "username": v[22],
+                "password": v[18],
+                "salt": v[19],
+                "md5": v[17],
+                "sha1": v[20],
+                "sha256": v[21]
+                },
+
+            "dob": {
+                "date": v[2],
+                "age": v[1]
+                },
+            "registered": {
+                "date": v[33],
+                "age": v[32]
+                },
+            "phone": v[28],
+            "cell": v[0],
+            "id": {
+                "name": v[5],
+                "value": v[6]
+                },
+            "picture": {
+                "large": v[29],
+                "medium": v[30],
+                "thumbnail": v[31]
+                },
+            "nat": v[27]
+            }
+        json_list['results'].append(user_json)
+    return json_list
+
+
+pprint(print_to_json(get_one_specified_entity('nat', 'US')))
+# pprint(print_to_json(list_all_data_from_a_collection()))
