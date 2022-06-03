@@ -75,7 +75,12 @@ def added_info(data):
     return
 
 
-def list_db(file_db_name='db/users.db'):
+def list_all_data_from_a_collection(file_db_name='db/users.db'):
+    """
+    function return all database objects
+    :param file_db_name:
+    :return: list
+    """
     with sqlite3.connect(file_db_name) as db:
         cursor = db.cursor()
     query = f""" SELECT * FROM users; """
@@ -87,12 +92,34 @@ def list_db(file_db_name='db/users.db'):
     return data_list
 
 
-def find_param(param, param_name, file_db_name='db/users.db' ):
+def get_one_specified_entity(param='nat', param_data='AU', file_db_name='db/users.db'):
+    """
+    function search database objects
+    :param param: search object
+    :param param_data: name object
+    :param file_db_name:
+    :return:
+    """
     with sqlite3.connect(file_db_name) as db:
         cursor = db.cursor()
-    query = f""" SELECT * FROM users; """
+    query = f""" SELECT * FROM users WHERE {param} = '{param_data}' ; """
     cursor.execute(query)
     db.commit()
     data_list = (cursor.execute(query)).fetchall()
     return data_list
 
+
+def delete_one_specified_entity(param='nat', param_data='DE', file_db_name='db/users.db'):
+    """
+    function deletes database objects
+    :param param: search object
+    :param param_data: name object
+    :param file_db_name:
+    :return:
+    """
+    with sqlite3.connect(file_db_name) as db:
+        cursor = db.cursor()
+    query = f""" DELETE FROM users WHERE {param} = '{param_data}' ; """
+    cursor.execute(query)
+    db.commit()
+    return print(f'{param} = {param_data} delete')

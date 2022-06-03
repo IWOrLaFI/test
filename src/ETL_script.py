@@ -11,9 +11,6 @@ def request_to_api():
     return requests.get(url).json()
 
 
-# users_json = request_to_api()
-
-
 class User:
     def __init__(self, cell, dob_age, dob_date, email, gender, id_name: None, id_value: None,
                  location_city, location_coordinates_latitude, location_coordinates_longitude,
@@ -121,4 +118,5 @@ def start():
     separation_users(request_to_api()['results'])
 
 
-start()
+if __name__ == '__main__':
+    start()
