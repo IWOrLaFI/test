@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from pprint import pprint
 
 
 def delete_table(file_db_name='db/users.db'):
@@ -198,7 +197,3 @@ def print_to_json(data):
             }
         json_list['results'].append(user_json)
     return json_list
-
-
-pprint(print_to_json(get_one_specified_entity('nat', 'US')))
-# pprint(print_to_json(list_all_data_from_a_collection()))
